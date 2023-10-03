@@ -1,19 +1,10 @@
 package main
 
-import (
-	"github.com/gin-gonic/gin"
-)
+import "github.com/iamrosada/go-rest-api/router"
 
 func main() {
-	r := gin.Default()
+	//Initialize Route
 
-	r.GET("/ping", func(c *gin.Context) {
-		c.JSON(200, gin.H{
-			"message": "pong",
-		})
-
-	})
-
-	r.Run()
+	router.Initialize()
 
 }
