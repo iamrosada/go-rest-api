@@ -7,6 +7,18 @@ import (
 	"github.com/iamrosada/go-rest-api/schemas"
 )
 
+// @BasePath /api/v1
+
+// @Summary Create oportunity
+// @Description Create a new job oportunity
+// @Tags Oportunities
+// @Accept json
+// @Produce json
+// @Param request body CreateOportunityRequest true "Request body"
+// @Success 200 {object} CreateOportunityResponse
+// @Failure 400 {object} ErrorResponse
+// @Failure 500 {object} ErrorResponse
+// @Router /oportunity [post]
 func CreateOportunityHandler(ctx *gin.Context) {
 	request := CreateOportunityRequest{}
 
