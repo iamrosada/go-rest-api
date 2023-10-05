@@ -1,14 +1,40 @@
 package handler
 
 import (
+	"fmt"
 	"net/http"
 
 	"github.com/gin-gonic/gin"
+	"github.com/iamrosada/go-rest-api/schemas"
 )
 
-func DeleteOportunitiyHandler(ctx *gin.Context) {
+func DeleteOportunityHandler(ctx *gin.Context) {
+	id := ctx.Query("id")
 
-	ctx.JSON(http.StatusOK, gin.H{
-		"message": "DELETE opening",
-	})
+	if id == "" {
+		sendError(ctx, http.StatusBadRequest,
+			errParamsIsRequired("id", "queryParameters").Error())
+		return
+	}
+
+	oportunity := schemas.Oportunity{}
+
+	//Find the Oportunity by id
+
+	if err := db.First(&oportunity, id).Error; err != nil {
+		sendError(ctx, http.StatusBadRequest,
+			fmt.Sprintf("Oportunity with id: %s not found", id))
+
+		return
+	}
+
+	//Delete Oportunity
+	if err := db.Delete(&oportunity, id).Error; err != nil {
+		sendError(ctx, http.StatusBadRequest,
+			fmt.Sprintf("Error deleting oportunity with id: %s", id))
+
+		return
+	}
+
+	sendSucess(ctx, "delete-oportunity", oportunity)
 }
