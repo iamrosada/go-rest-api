@@ -14,6 +14,20 @@ definitions:
       salary:
         type: integer
     type: object
+  handler.CreateOportunityResponse:
+    properties:
+      data:
+        $ref: '#/definitions/schemas.OportunityResponse'
+      message:
+        type: string
+    type: object
+  handler.DeleteOportunityResponse:
+    properties:
+      data:
+        $ref: '#/definitions/schemas.OportunityResponse'
+      message:
+        type: string
+    type: object
   handler.ErrorResponse:
     properties:
       errorCode:
@@ -21,10 +35,146 @@ definitions:
       message:
         type: string
     type: object
+  handler.ListOportunitiesResponse:
+    properties:
+      data:
+        items:
+          $ref: '#/definitions/schemas.OportunityResponse'
+        type: array
+      message:
+        type: string
+    type: object
+  handler.ShowOportunityResponse:
+    properties:
+      data:
+        $ref: '#/definitions/schemas.OportunityResponse'
+      message:
+        type: string
+    type: object
+  handler.UpdateOportunityRequest:
+    properties:
+      company:
+        type: string
+      link:
+        type: string
+      location:
+        type: string
+      remote:
+        type: boolean
+      role:
+        type: string
+      salary:
+        type: integer
+    type: object
+  handler.UpdateOportunityResponse:
+    properties:
+      data:
+        $ref: '#/definitions/schemas.OportunityResponse'
+      message:
+        type: string
+    type: object
+  schemas.OportunityResponse:
+    properties:
+      company:
+        type: string
+      createdAt:
+        type: string
+      deletedAt:
+        type: string
+      id:
+        type: integer
+      link:
+        type: string
+      location:
+        type: string
+      remote:
+        type: boolean
+      role:
+        type: string
+      salary:
+        type: integer
+      updatedAt:
+        type: string
+    type: object
 info:
   contact: {}
 paths:
+  /Oportunities:
+    get:
+      consumes:
+      - application/json
+      description: List all job Oportunity
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/handler.ListOportunitiesResponse'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/handler.ErrorResponse'
+      summary: List Oportunity
+      tags:
+      - Oportunities
   /oportunity:
+    delete:
+      consumes:
+      - application/json
+      description: Delete a new job oportunity
+      parameters:
+      - description: Oportunity identification
+        in: query
+        name: id
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/handler.DeleteOportunityResponse'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/handler.ErrorResponse'
+        "404":
+          description: Not Found
+          schema:
+            $ref: '#/definitions/handler.ErrorResponse'
+      summary: Delete oportunity
+      tags:
+      - Oportunities
+    get:
+      consumes:
+      - application/json
+      description: Show a job oportunity
+      parameters:
+      - description: Oportunity identification
+        in: query
+        name: id
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/handler.ShowOportunityResponse'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/handler.ErrorResponse'
+        "404":
+          description: Not Found
+          schema:
+            $ref: '#/definitions/handler.ErrorResponse'
+      summary: Show oportunity
+      tags:
+      - Oportunities
     post:
       consumes:
       - application/json
@@ -39,6 +189,10 @@ paths:
       produces:
       - application/json
       responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/handler.CreateOportunityResponse'
         "400":
           description: Bad Request
           schema:
@@ -47,7 +201,45 @@ paths:
           description: Internal Server Error
           schema:
             $ref: '#/definitions/handler.ErrorResponse'
-      summary: Create opportunity
+      summary: Create oportunity
       tags:
-      - Opportunities
+      - Oportunities
+    put:
+      consumes:
+      - application/json
+      description: Update a job Oportunity
+      parameters:
+      - description: Oportunity Identification
+        in: query
+        name: id
+        required: true
+        type: string
+      - description: Oportunity data to Update
+        in: body
+        name: Oportunity
+        required: true
+        schema:
+          $ref: '#/definitions/handler.UpdateOportunityRequest'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/handler.UpdateOportunityResponse'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/handler.ErrorResponse'
+        "404":
+          description: Not Found
+          schema:
+            $ref: '#/definitions/handler.ErrorResponse'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/handler.ErrorResponse'
+      summary: Update Oportunity
+      tags:
+      - Oportunities
 swagger: "2.0"
