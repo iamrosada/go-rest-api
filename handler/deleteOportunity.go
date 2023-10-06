@@ -15,12 +15,11 @@ import (
 // @Tags Oportunities
 // @Accept json
 // @Produce json
-// @Param request body DeleteOportunityRequest true "Request body"
+// @Param id query string  true "Oportunity identification"
 // @Success 200 {object} DeleteOportunityResponse
 // @Failure 400 {object} ErrorResponse
 // @Failure 404 {object} ErrorResponse
 // @Router /oportunity [delete]
-
 func DeleteOportunityHandler(ctx *gin.Context) {
 	id := ctx.Query("id")
 
