@@ -7,6 +7,18 @@ import (
 	"github.com/iamrosada/go-rest-api/schemas"
 )
 
+// @BasePath /api/v1
+
+// @Summary Show oportunity
+// @Description Show a job oportunity
+// @Tags Oportunities
+// @Accept json
+// @Produce json
+// @Param id query string  true "Oportunity identification"
+// @Success 200 {object} ShowOportunityResponse
+// @Failure 400 {object} ErrorResponse
+// @Failure 404 {object} ErrorResponse
+// @Router /oportunity [get]
 func ShowOportunityHandler(ctx *gin.Context) {
 
 	id := ctx.Query("id")

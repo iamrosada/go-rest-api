@@ -7,6 +7,20 @@ import (
 	"github.com/iamrosada/go-rest-api/schemas"
 )
 
+// @BasePath /api/v1
+
+// @Summary Update Oportunity
+// @Description Update a job Oportunity
+// @Tags Oportunities
+// @Accept json
+// @Produce json
+// @Param id query string true "Oportunity Identification"
+// @Param Oportunity body UpdateOportunityRequest true "Oportunity data to Update"
+// @Success 200 {object} UpdateOportunityResponse
+// @Failure 400 {object} ErrorResponse
+// @Failure 404 {object} ErrorResponse
+// @Failure 500 {object} ErrorResponse
+// @Router /oportunity [put]
 func UpdateOportunityHandler(ctx *gin.Context) {
 
 	request := UpdateOportunityRequest{}
